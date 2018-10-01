@@ -1,94 +1,42 @@
 <template>
-  <el-menu class="navbar" mode="horizontal">
-    <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
-    <breadcrumb />
-    <el-dropdown class="avatar-container" trigger="click">
-      <div class="avatar-wrapper">
-        <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-        <i class="el-icon-caret-bottom"/>
-      </div>
-      <el-dropdown-menu slot="dropdown" class="user-dropdown">
-        <router-link class="inlineBlock" to="/">
-          <el-dropdown-item>
-            Home
-          </el-dropdown-item>
-        </router-link>
-        <el-dropdown-item divided>
-          <span style="display:block;" @click="logout">LogOut</span>
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-  </el-menu>
+    <div>
+        <el-menu :default-active="activeIndex.toString()" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+            <el-menu-item :index="index.toString()" v-if='!item.hidden' :key="index" v-for='(item,index) of pageRouter'>  
+                 <router-link :to="item.path" >{{item.name}}</router-link>
+            </el-menu-item>
+        </el-menu>
+    </div>
 </template>
-
 <script>
-import { mapGetters } from 'vuex'
-import Breadcrumb from '@/components/Breadcrumb'
-import Hamburger from '@/components/Hamburger'
-
+import pageRouter from '@/router/pageRouter.js'
 export default {
-  components: {
-    Breadcrumb,
-    Hamburger
-  },
-  computed: {
-    ...mapGetters([
-      'sidebar',
-      'avatar'
-    ])
-  },
-  methods: {
-    toggleSideBar() {
-      this.$store.dispatch('ToggleSideBar')
+    name:'topMenu',
+    data(){
+        return {
+           activeIndex:0,
+           pageRouter:pageRouter
+        }
     },
-    logout() {
-      this.$store.dispatch('LogOut').then(() => {
-        location.reload() // 为了重新实例化vue-router对象 避免bug
-      })
-    }
-  }
+    methods:{
+        handleSelect(key, keyPath){
+          this.$store.commit('SET_CHILDMENU',this.pageRouter[key]);
+        }
+    },
+    mounted() {
+        // 找到当前路由对应的子路由。
+        var currntIndex = '0';
+        var menu  = this.pageRouter.find((v,index)=>{
+            if(this.$route.path.indexOf(v.path)!=-1){
+                currntIndex = index;
+                return true;
+            }
+        })
+        this.activeIndex = currntIndex; 
+        this.$store.commit('SET_CHILDMENU',this.pageRouter[currntIndex]);
+    },
 }
 </script>
+<style scoped>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
-.navbar {
-  height: 50px;
-  line-height: 50px;
-  border-radius: 0px !important;
-  .hamburger-container {
-    line-height: 58px;
-    height: 50px;
-    float: left;
-    padding: 0 10px;
-  }
-  .screenfull {
-    position: absolute;
-    right: 90px;
-    top: 16px;
-    color: red;
-  }
-  .avatar-container {
-    height: 50px;
-    display: inline-block;
-    position: absolute;
-    right: 35px;
-    .avatar-wrapper {
-      cursor: pointer;
-      margin-top: 5px;
-      position: relative;
-      .user-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-      }
-      .el-icon-caret-bottom {
-        position: absolute;
-        right: -20px;
-        top: 25px;
-        font-size: 12px;
-      }
-    }
-  }
-}
 </style>
 

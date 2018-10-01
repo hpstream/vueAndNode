@@ -21,6 +21,8 @@ Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
 Vue.prototype.$request = request
+
+
 new Vue({
   el: '#app',
   router,

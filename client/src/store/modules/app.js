@@ -6,9 +6,13 @@ const app = {
       opened: !+Cookies.get('sidebarStatus'),
       withoutAnimation: false
     },
+    chidlMenu:[],
     device: 'desktop'
   },
   mutations: {
+    SET_CHILDMENU:(state,chidlMenu)=>{
+      state.chidlMenu = chidlMenu;
+    },
     TOGGLE_SIDEBAR: state => {
       if (state.sidebar.opened) {
         Cookies.set('sidebarStatus', 1)
