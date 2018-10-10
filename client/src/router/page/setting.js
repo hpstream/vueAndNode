@@ -2,7 +2,7 @@
  * 此页面控制权限设置部分
  */
 /* Layout */
-import Layout from '../views/layout/Layout'
+import Layout from '@/views/layout/Layout'
 const base = '@/views/setting';
 export default   {
         path: '/setting',
