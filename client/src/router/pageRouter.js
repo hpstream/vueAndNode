@@ -13,20 +13,8 @@ export default [
         meta: { title: 'user', icon: 'form' }
       },
       {
-        path: 'part',
-        name: '部门管理',
-        component: () => import('@/views/user/user'),
-        meta: { title: 'user', icon: 'form' }
-      },
-      {
         path: 'role',
         name: '角色管理',
-        component: () => import('@/views/user/user'),
-        meta: { title: 'user', icon: 'form' }
-      },
-      {
-        path: 'auth',
-        name: '权限设置',
         component: () => import('@/views/user/user'),
         meta: { title: 'user', icon: 'form' }
       }
