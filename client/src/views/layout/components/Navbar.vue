@@ -1,10 +1,11 @@
 <template>
-    <div>
+    <div style='position: relative;'>
         <el-menu :default-active="activeIndex.toString()" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-menu-item :index="index.toString()" v-if='!item.hidden' :key="index" v-for='(item,index) of pageRouter'>  
                  <router-link :to="item.path" >{{item.name}}</router-link>
             </el-menu-item>
         </el-menu>
+       <el-button type="text" class='logout' @click='logout'>退出</el-button> 
     </div>
 </template>
 <script>
@@ -20,6 +21,10 @@ export default {
     methods:{
         handleSelect(key, keyPath){
           this.$store.commit('SET_CHILDMENU',this.pageRouter[key]);
+        },
+        logout(){
+            this.$store.dispatch('FedLogOut');
+            location.reload();
         }
     },
     mounted() {
@@ -37,6 +42,10 @@ export default {
 }
 </script>
 <style scoped>
-
+.logout{
+    position: absolute;
+    right:30px;
+    top: 10px;
+}
 </style>
 

@@ -26,37 +26,23 @@ const user = {
 
   actions: {
     // 登录
-    Login({ commit }, userInfo) {
+    async Login({ commit }, userInfo) {
       const username = userInfo.username.trim()
-      return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
-          const data = response.data
-          setToken(data.token)
-          commit('SET_TOKEN', data.token)
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
-      })
+      var data = await login(username, userInfo.password);
+      if(data.code){
+            setToken(data.token)
+            commit('SET_TOKEN', data.token)
+            return data;
+      }
     },
 
     // 获取用户信息
-    GetInfo({ commit, state }) {
-      return new Promise((resolve, reject) => {
-        getInfo(state.token).then(response => {
-          const data = response.data
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
-          } else {
-            reject('getInfo: roles must be a non-null array !')
-          }
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          resolve(response)
-        }).catch(error => {
-          reject(error)
-        })
-      })
+    async GetInfo({ commit, state }) {
+      var res = await getInfo(state.token);
+      if(res){
+        commit('SET_ROLES', res.data.roles)
+        return res;
+      }  
     },
 
     // 登出
@@ -74,12 +60,9 @@ const user = {
     },
 
     // 前端 登出
-    FedLogOut({ commit }) {
-      return new Promise(resolve => {
-        commit('SET_TOKEN', '')
-        removeToken()
-        resolve()
-      })
+    async FedLogOut({ commit }) {
+      commit('SET_TOKEN', '')
+      removeToken()
     }
   }
 }

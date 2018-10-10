@@ -8,11 +8,11 @@
           label="日期">
         </el-table-column>
         <el-table-column
-          prop="login_name"
+          prop="name"
           label="姓名">
         </el-table-column>
         <el-table-column
-          prop="create_time"
+          prop="address"
           label="地址">
         </el-table-column>
       </el-table>

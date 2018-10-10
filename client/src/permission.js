@@ -29,14 +29,14 @@ router.beforeEach(async (to, from, next) => {
   }
   
   // 登录过，拉去用户的信息
-  if (store.getters.roles.length === 0) {
+  if (store.getters.roles && store.getters.roles.length === 0) {
     var res = await store.dispatch('GetInfo');
     // 获取到用户信息
     if (res.code) {
       next({ ...to, replace: true })
     } else {
       // 未获取到用户信息,退出到登录页
-      await store.dispatch('FedLogOut')
+      store.dispatch('FedLogOut') 
       Message.error(err || 'Verification failed, please login again');
       next({ path: '/' })
     }
