@@ -95,7 +95,7 @@ export default {
             this.$router.push({ path: this.redirect || '/' })
           }else{
             console.log('error submit!!')
-          }  
+          }
         }
     })
     }

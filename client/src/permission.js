@@ -33,6 +33,7 @@ router.beforeEach(async (to, from, next) => {
     var res = await store.dispatch('GetInfo');
     // 获取到用户信息
     if (res.code) {
+      router.addRoutes(res.data.router);
       next({ ...to, replace: true })
     } else {
       // 未获取到用户信息,退出到登录页

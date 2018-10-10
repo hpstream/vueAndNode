@@ -4,7 +4,7 @@
         <el-col :span="4">
             <side-bar />
         </el-col>
-        <el-col :span="20">   
+        <el-col :span="20" class='content'>   
            <app-main />
         </el-col>
       </el-row>
@@ -25,7 +25,9 @@ export default {
 }
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
-
+.content{
+  padding: 20px;
+}
 </style>
 
 
