@@ -13,6 +13,7 @@ export default   {
           {
             path: 'user',
             name: '道具管理',
+            hidden:true, // 控制页面是否不再菜单上显示
             routerId:'01_01_00',
             component: () => import('@/views/shopping/tools/tools'),
             meta: { title: 'user'}

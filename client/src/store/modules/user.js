@@ -57,7 +57,7 @@ const user = {
       if(res){
         if (res.data.roles && res.data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
          
-          var isdata = ['00_00_00','00_01_00','00_02_00'];
+          var isdata = ['00_00_00','00_01_00','00_02_00','01_00_00','01_01_00','01_02_00'];
           var isvisiablerouter = getmenu(pageRouter,isdata);
           commit('SET_ROLES', isvisiablerouter);
           // 404路由需要放到数组最后

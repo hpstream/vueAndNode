@@ -1,7 +1,7 @@
 <template>
     <div class="">
          <el-menu :default-active="activeIndex.toString()" class="el-menu-demo"  >
-            <el-menu-item :index="index.toString()" :key="index" v-for='(item,index) of menu.children'>  
+            <el-menu-item :index="index.toString()" v-if='!item.hidden' :key="index" v-for='(item,index) of menu.children'>  
                  <router-link :to="menu.path+'/'+item.path">{{item.name}}</router-link>
             </el-menu-item>
         </el-menu>
