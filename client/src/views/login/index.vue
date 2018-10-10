@@ -92,7 +92,6 @@ export default {
           this.loading = true;
           var data = await this.$store.dispatch('Login', this.loginForm);
           if(data){
-            console.log(1)
             this.$router.push({ path: this.redirect || '/' })
           }else{
             console.log('error submit!!')
