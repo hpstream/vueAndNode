@@ -6,7 +6,6 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 import whiteList from './whiteList.js'
-import pageRouter from './pageRouter.js'
 /**
 * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
 * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
@@ -19,7 +18,7 @@ import pageRouter from './pageRouter.js'
     icon: 'svg-name'             the icon show in the sidebar,
   }
 **/
-export const constantRouterMap = [...whiteList,...pageRouter]
+export const constantRouterMap = [...whiteList]
 
 export default new Router({
   // mode: 'history', //后端支持可开
